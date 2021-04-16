@@ -6,6 +6,8 @@ date: "4/14/2021"
 output: html_document
 ---
 
+[Download all code used below from the GitHub repository](https://github.com/sarahymurphy/r-reticulate-tutorial).
+
 There are four ways to use Python code in your R workflow:
 
 - Python code blocks in R Markdown
