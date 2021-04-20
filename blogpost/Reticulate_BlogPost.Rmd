@@ -6,7 +6,7 @@ date: "4/14/2021"
 output: html_document
 ---
 
-[Download all code used below from the GitHub repository](https://github.com/sarahymurphy/r-reticulate-tutorial).
+[Download all code used below from the GitHub repository](https://github.com/sarahymurphy/r-reticulate-tutorial)!
 
 There are four ways to use Python code in your R workflow:
 
@@ -18,22 +18,22 @@ There are four ways to use Python code in your R workflow:
 All of these require reticulate.
 
 ## Reticulate
-[Reticulate](https://rstudio.github.io/reticulate/) is a library that allows you to open a Python environment within R. You can load Python packages and use them within your R script using a mix of Python and R syntax. All data types will be converted to their equivalent type when being handed off between Python and R.
+[Reticulate](https://rstudio.github.io/reticulate/) is a library that allows you to open a Python environment within R. You can also load Python packages and use them within your R script using a mix of Python and R syntax. All data types will be converted to their equivalent type when being handed off between Python and R.
 
 ### Installation
 
-First install the reticulate package: 
+First, install the reticulate package: 
 ```{r eval=FALSE}
 install.packages("reticulate")
 ```
 
-When you install reticulate you are also installing [Miniconda](https://docs.conda.io/en/latest/miniconda.html), a lightweight package manager for Python. This will also create a new Python environment on your machine called `r-reticulate`. You do not need to use this environment but we will use this one for this demonstration. [More information about Python environments can be found here](https://docs.python.org/3/tutorial/venv.html).
+When you install reticulate you are also installing [Miniconda](https://docs.conda.io/en/latest/miniconda.html), a lightweight package manager for Python. This will create a new Python environment on your machine called `r-reticulate`. You do not need to use this environment but I will be using it for the rest of this post. [More information about Python environments can be found here](https://docs.python.org/3/tutorial/venv.html).
 
 ## Python Code Blocks in R Markdown
 
-[R Markdown](https://rmarkdown.rstudio.com/) can contain both Python and R code blocks. You can click on the `insert` dropdown list in R Studio and select Python or manually create the code block. Once you have a code block you can use Python with no modifications to Python syntax. Python code blocks will run as Python code when you knit your document. 
+[R Markdown](https://rmarkdown.rstudio.com/) can contain both Python and R code blocks. When in an RMarkdown document you can either manually create a code block or click on the `insert` dropdown list in R Studio and select Python. Once you have a code block you can code using typical Python syntax. Python code blocks will run as Python code when you knit your document. 
 
-![](img/python-codeblock.png)
+![](https://github.com/sarahymurphy/r-reticulate-tutorial/blob/main/blogpost/img/python-codeblock.png?raw=true)
 ```{python, echo=FALSE}
 python_variable = 6
 print(python_variable)
@@ -41,13 +41,14 @@ print(python_variable)
 
 ## Working with Python Interactively
 
-We can use Python interactively within the console in R studio. To do this, we can use the `repl_python()` command. This opens a Python prompt.
+We can use Python interactively within the console in R studio. To do this, we will use the `repl_python()` command. This opens a Python prompt.
 
 ```{r, eval=FALSE}
 # Load library
 library(reticulate)
 
 # Open an interactive Python environment
+# Type this in the console to open an interactive environment
 repl_python()
 
 # We can do some simple Python commands
@@ -70,7 +71,7 @@ reticulate::py_config()
 # Load the Python installation you want to use
 use_python("/Users/smurphy/opt/anaconda3/envs/r-reticulate/bin/python")
 
-#  If you have a named environment you want to use you can load it by name:
+#  If you have a named environment you want to use you can load it by name
 use_virtualenv("r-reticulate")
 
 ```
@@ -88,7 +89,7 @@ The `conda_install` function uses Miniconda to install Python packages. We speci
 
 ## Using Python Commands within R Scripts
 
-We can now load our newly installed Python libraries in R. Open a new R script and import these packages using the `import` command. We set are assigning these to some common nicknames for these packages so they are easier to reference later on.
+We can now load our newly installed Python libraries in R. Open a new R script and import these packages using the `import` command. We are assigning these to some common nicknames for these packages so they are easier to reference later on.
 
 ```{r}
 library(reticulate)
@@ -107,9 +108,9 @@ air_temperature <- xr$tutorial$open_dataset("air_temperature.nc")
 air_temperature
 ```
 
-Next, we will create our figure. This is a map of air temperature over the United States for any day in 2013 specified in the plotting command. All of the following are Python commands that are part of the cartopy and matplotlib plotting packages. 
+Next, we will create our figure. This is a map of air temperature over the United States for any day in 2013 specified in the plotting command. 
 
-Python users define lists with square brackets. However, the equivalent R type to this is a multi-element vector, so we must define it as such. One example of where this is used is in the first line in the following code block. In Python the proper syntax would be `fig = plt.figure(figsize = [15, 5])`, but when we use this command in R with reticulate we have to use types that R recognizes, so we replace the `=` with `<-`, `.` with `$`, and `[]` with `c()` giving us `fig <- plt$figure(figsize = c(15, 5))`. 
+Python users define lists with square brackets. However, the equivalent R type to this is a multi-element vector, so we must define it as such. One example of where this is used is in the first line in the following code block. In Python, we would specify the size of a figure using `fig = plt.figure(figsize = [15, 5])`, but when we use this command in R with reticulate we must use types that R recognizes, so we replace the `=` with `<-`, `.` with `$`, and `[]` with `c()` giving us `fig <- plt$figure(figsize = c(15, 5))`. 
 
 The Python equivalent of the following R code can be seen in the next section about sourcing Python scripts. 
 
@@ -194,8 +195,6 @@ I have named the above file `Python_PlotAirTemp.py`. Once we source this file, w
 
 ```{r}
 library(reticulate)
-matplotlib <- import("matplotlib", convert = TRUE)
-matplotlib$use("Agg")
 
 # Source the Python file to import the functions
 source_python('../Python_PlotAirTemp.py')
