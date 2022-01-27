@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>WRF Python Translation &#8212; My sample book</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"processClass": "tex2jax_process|mathjax_process|math|output_area"}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">My sample book</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1 current">
+  <a class="reference internal" href="#">
+   WRF Python Translation
+  </a>
+ </li>
+</ul>
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/WRF_Python_Translation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FWRF_Python_Translation.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/WRF_Python_Translation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   WRF Python Translation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wrf-f90">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     wrf.f90
+    </span>
+   </code>
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modules-used">
+     Modules used:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-code">
+     Full Code:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-translation">
+     Python Translation:
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#wrf">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         wrf()
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-top-wrf-f90">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     module_top_wrf.f90
+    </span>
+   </code>
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modules-used-1">
+     Modules used:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-code-1">
+     Full Code
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-translation-1">
+     Python Translation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#section-1">
+       `
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-driver-constants">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     module_driver_constants
+    </span>
+   </code>
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-machine">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       module_machine
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#rlocproc">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         rlocproc
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2">
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrf-run">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       wrf_run
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrf-finalize">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       wrf_finalize
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrf-dfi">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       wrf_dfi
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>WRF Python Translation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   WRF Python Translation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wrf-f90">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     wrf.f90
+    </span>
+   </code>
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modules-used">
+     Modules used:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-code">
+     Full Code:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-translation">
+     Python Translation:
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#wrf">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         wrf()
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-top-wrf-f90">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     module_top_wrf.f90
+    </span>
+   </code>
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modules-used-1">
+     Modules used:
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#full-code-1">
+     Full Code
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#python-translation-1">
+     Python Translation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#section-1">
+       `
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-driver-constants">
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     module_driver_constants
+    </span>
+   </code>
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#module-machine">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       module_machine
+      </span>
+     </code>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#rlocproc">
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         rlocproc
+        </span>
+       </code>
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2">
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrf-run">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       wrf_run
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrf-finalize">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       wrf_finalize
+      </span>
+     </code>
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrf-dfi">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       wrf_dfi
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="wrf-python-translation">
+<h1>WRF Python Translation<a class="headerlink" href="#wrf-python-translation" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="#wrf.f90">wrf.f90</a></p>
+<ul>
+<li><p><a class="reference external" href="#module_top_wrf.f90">module_top_wrf.f90</a> (only wrf_init, wrf_dfi, wrf_run, wrf_finalize)</p>
+<ul>
+<li><p><a class="reference external" href="#module_driver_constants">module_driver_constants</a></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">module_driver_constants()</span></code></p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="#module_machine">module_machine</a></p>
+<ul>
+<li><p><a class="reference external" href="#rlocproc">rlocproc</a> <code class="docutils literal notranslate"><span class="pre">rlocproc(p,</span> <span class="pre">maxi,</span> <span class="pre">nproc,</span> <span class="pre">ml,</span> <span class="pre">mr,</span> <span class="pre">ret)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">locproc(i,</span> <span class="pre">m,</span> <span class="pre">numpart)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">patchmap(res,</span> <span class="pre">y,</span> <span class="pre">x,</span> <span class="pre">py,</span> <span class="pre">px)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">region_bounds(region_start,</span> <span class="pre">region_end,</span> <span class="pre">num_p,</span> <span class="pre">p,</span> <span class="pre">patch_start,</span> <span class="pre">patch_end)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">least_aspect(nparts,</span> <span class="pre">minparts_y,</span> <span class="pre">minparts_x,</span> <span class="pre">nparts_y,</span> <span class="pre">nparts_x)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">init_module_machine()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrf_sizeof_integer(retval)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrf_sizeof_real(retval)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrf_sizeof_doubleprecision(retval)</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wrf_sizeof_logical(retval)</span></code></p></li>
+</ul>
+</li>
+<li><p>module_domain</p></li>
+<li><p>module_integrate</p></li>
+<li><p>module_configure</p></li>
+<li><p>module_check_a_mundo</p></li>
+<li><p>module_timing</p></li>
+<li><p>module_wrf_error</p></li>
+<li><p>module_nesting</p></li>
+<li><p>module_dm, ONLY : wrf_dm_initialize,wrf_get_hostid,domain_active_this_task,mpi_comm_allcompute</p></li>
+<li><p>module_cpl, ONLY : coupler_on, cpl_finalize, cpl_defdomain</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="wrf-f90">
+<h1><code class="docutils literal notranslate"><span class="pre">wrf.f90</span></code><a class="headerlink" href="#wrf-f90" title="Permalink to this headline">¶</a></h1>
+<section id="modules-used">
+<h2>Modules used:<a class="headerlink" href="#modules-used" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>module_wrf_top (only wrf_init, wrf_dfi, wrf_run, wrf_finalize)</p></li>
+</ul>
+</section>
+<section id="full-code">
+<h2>Full Code:<a class="headerlink" href="#full-code" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="python-translation">
+<h2>Python Translation:<a class="headerlink" href="#python-translation" title="Permalink to this headline">¶</a></h2>
+<section id="wrf">
+<h3><code class="docutils literal notranslate"><span class="pre">wrf()</span></code><a class="headerlink" href="#wrf" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">wrf</span><span class="p">():</span>
+    <span class="c1"># module_wrf_top</span>
+    <span class="n">wrf_init</span><span class="p">()</span>
+    <span class="c1"># module_wrf_top</span>
+    <span class="n">wrf_dfi</span><span class="p">()</span>
+    <span class="c1"># module_wrf_top</span>
+    <span class="n">wrf_run</span><span class="p">()</span>
+    <span class="c1"># module_wrf_top</span>
+    <span class="n">wrf_finalize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="module-top-wrf-f90">
+<h1><code class="docutils literal notranslate"><span class="pre">module_top_wrf.f90</span></code><a class="headerlink" href="#module-top-wrf-f90" title="Permalink to this headline">¶</a></h1>
+<p>ONLY:</p>
+<ul class="simple">
+<li><p>wrf_init</p></li>
+<li><p>wrf_dfi</p></li>
+<li><p>wrf_run</p></li>
+<li><p>wrf_finalize</p></li>
+</ul>
+<section id="modules-used-1">
+<h2>Modules used:<a class="headerlink" href="#modules-used-1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>module_machine</p></li>
+<li><p>module_domain</p></li>
+<li><p>module_integrate</p></li>
+<li><p>module_driver_constants</p></li>
+<li><p>module_configure</p></li>
+<li><p>module_check_a_mundo</p></li>
+<li><p>module_timing</p></li>
+<li><p>module_wrf_error</p></li>
+<li><p>module_nesting</p></li>
+<li><p>module_dm (only wrf_dm_initialize,wrf_get_hostid,domain_active_this_task,mpi_comm_allcompute)</p></li>
+<li><p>module_cpl (only coupler_on, cpl_finalize, cpl_defdomain)</p></li>
+</ul>
+</section>
+<section id="full-code-1">
+<h2>Full Code<a class="headerlink" href="#full-code-1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="python-translation-1">
+<h2>Python Translation<a class="headerlink" href="#python-translation-1" title="Permalink to this headline">¶</a></h2>
+<section id="section-1">
+<h3>`<a class="headerlink" href="#section-1" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="module-driver-constants">
+<h1><code class="docutils literal notranslate"><span class="pre">module_driver_constants</span></code><a class="headerlink" href="#module-driver-constants" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">module_driver_constants_0</span><span class="p">():</span>
+    <span class="n">DATA_ORDER_XYZ</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">DATA_ORDER_YXZ</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">DATA_ORDER_ZXY</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">DATA_ORDER_ZYX</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">DATA_ORDER_XZY</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">DATA_ORDER_YZX</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">DATA_ORDER_XY</span> <span class="o">=</span> <span class="n">DATA_ORDER_XYZ</span>
+    <span class="n">DATA_ORDER_YX</span> <span class="o">=</span> <span class="n">DATA_ORDER_YXZ</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">module_driver_constants_1</span><span class="p">():</span>
+    <span class="n">max_levels</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">max_nests</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">max_parents</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">max_domains</span> <span class="o">=</span> <span class="p">(</span><span class="n">MAX_DOMAINS_F</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">max_moves</span> <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">max_eta</span> <span class="o">=</span> <span class="mi">1001</span>
+    <span class="n">max_ocean</span> <span class="o">=</span> <span class="mi">501</span>
+    <span class="n">max_plevs</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">max_zlevs</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">max_trackchem</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">max_outer_iterations</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">max_instruments</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">num_ob_indexes</span> <span class="o">=</span> <span class="mi">28</span>
+    <span class="n">max_bogus</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="n">max_cplfld</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">max_extdomains</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">module_driver_constants_2</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">DM_PARALLEL</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">max_comms</span> <span class="o">=</span> <span class="mi">1024</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">max_comms</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">module_driver_constants_3</span><span class="p">():</span>
+    <span class="n">min_file_unit</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">max_file_unit</span> <span class="o">=</span> <span class="mi">99</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">module_driver_constants_4</span><span class="p">():</span>
+    <span class="n">P2SI</span> <span class="o">=</span> <span class="mf">1.0</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">module_driver_constants</span><span class="p">():</span>
+    <span class="n">module_driver_constants_0</span><span class="p">()</span>
+    <span class="n">module_driver_constants_1</span><span class="p">()</span>
+    <span class="n">module_driver_constants_2</span><span class="p">()</span>
+    <span class="n">module_driver_constants_3</span><span class="p">()</span>
+    <span class="n">module_driver_constants_4</span><span class="p">()</span>
+
+<span class="c1"># module_driver_constants()</span>
+<span class="c1"># NEED MAX_DOMAINS_F</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<section id="module-machine">
+<h2><code class="docutils literal notranslate"><span class="pre">module_machine</span></code><a class="headerlink" href="#module-machine" title="Permalink to this headline">¶</a></h2>
+<section id="rlocproc">
+<h3><code class="docutils literal notranslate"><span class="pre">rlocproc</span></code><a class="headerlink" href="#rlocproc" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TILE_NONE</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">TILE_X</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">TILE_Y</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">TILE_XY</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">def</span> <span class="nf">rlocproc</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">maxi</span><span class="p">,</span> <span class="n">nproc</span><span class="p">,</span> <span class="n">ml</span><span class="p">,</span> <span class="n">mr</span><span class="p">,</span> <span class="n">ret</span><span class="p">):</span>
+
+    <span class="n">adjust</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">maxi</span><span class="p">,</span> <span class="n">nproc</span><span class="p">)</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">maxi</span> <span class="o">/</span> <span class="n">nproc</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">maxi</span> <span class="o">/</span> <span class="mi">2</span>
+    
+    <span class="k">if</span> <span class="p">((</span><span class="n">rem</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(((</span><span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">rem</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">))</span> <span class="ow">or</span> <span class="p">(</span><span class="n">p</span> <span class="o">&lt;</span> <span class="n">mid</span><span class="p">))):</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="o">+</span> <span class="mi">1</span>
+        
+    <span class="k">if</span> <span class="p">((</span><span class="n">p</span> <span class="o">&lt;=</span> <span class="n">mid</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">rem</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="n">adjust</span> <span class="o">=</span> <span class="n">adjust</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="n">bl</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">ml</span><span class="p">)</span>
+    <span class="n">br</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">mr</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="n">bl</span><span class="p">:</span>  <span class="c1"># goes if p &lt; 3 or (30 / 100)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">maxi</span> <span class="o">-</span> <span class="n">br</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># goes if p &gt; 26 (30 - 3 - 1 = p &gt; 26)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">nproc</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span> <span class="c1"># goes if 26 &gt; p &gt; 3</span>
+        <span class="n">p_r</span> <span class="o">=</span> <span class="n">p</span> <span class="o">-</span> <span class="n">bl</span>
+        <span class="n">maxi_r</span> <span class="o">=</span> <span class="n">maxi</span> <span class="o">-</span> <span class="n">bl</span> <span class="o">-</span> <span class="n">br</span> <span class="o">+</span> <span class="n">adjust</span>
+        <span class="n">nproc_r</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">nproc</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span>
+        
+    <span class="n">rlocproc</span><span class="p">(</span><span class="n">p_r</span><span class="p">,</span> <span class="n">maxi_r</span><span class="p">,</span> <span class="n">nproc_r</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">ret2</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">ret2</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">ret</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># rlocproc(20, 30, 100, 3, 3, 4)</span>
+<span class="c1"># NEED ret2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">locproc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">numpart</span><span class="p">):</span>
+    <span class="n">ii</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">m</span>
+    <span class="n">inpart</span> <span class="o">=</span> <span class="n">numpart</span>
+    <span class="n">zero</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">rlocproc</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">im</span><span class="p">,</span> <span class="n">inumpart</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">zero</span><span class="p">,</span> <span class="n">retval</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">patchmap</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">px</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">p_maj</span> <span class="o">=</span> <span class="n">locproc</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">py</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">p_min</span> <span class="o">=</span> <span class="n">locproc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">px</span><span class="p">)</span>
+            <span class="n">res</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">p_min</span> <span class="o">+</span> <span class="n">px</span> <span class="o">*</span> <span class="n">p_maj</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;/var/folders/21/bhksj_cn7zz43y8x0m4gsh0h0000gn/T/ipykernel_69620/271290688.py&quot;</span><span class="gt">, line </span><span class="mi">4</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+          <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">region_bounds</span><span class="p">(</span><span class="n">region_start</span><span class="p">,</span> <span class="n">region_end</span><span class="p">,</span> <span class="n">num_p</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">patch_start</span><span class="p">,</span> <span class="n">patch_end</span><span class="p">):</span>
+    <span class="n">patch_end</span> <span class="o">=</span> <span class="o">-</span><span class="mi">999999999</span>
+    <span class="n">patch_start</span> <span class="o">=</span> <span class="mi">999999999</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">region_start</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">region_end</span> <span class="o">-</span> <span class="n">offset</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">locproc</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">region_end</span> <span class="o">-</span> <span class="n">region_start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">num_p</span><span class="p">)</span> <span class="o">==</span> <span class="n">p</span><span class="p">):</span>
+            <span class="n">patch_end</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">patch_end</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+            <span class="n">patch_start</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">patch_start</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">patch_start</span> <span class="o">=</span> <span class="n">patch_start</span> <span class="o">+</span> <span class="n">offset</span>
+    <span class="n">patch_end</span>   <span class="o">=</span> <span class="n">patch_end</span>   <span class="o">+</span> <span class="n">offset</span>
+    
+    <span class="k">return</span> <span class="n">patch_start</span><span class="p">,</span> <span class="n">patch_end</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">least_aspect</span><span class="p">(</span><span class="n">nparts</span><span class="p">,</span> <span class="n">minparts_y</span><span class="p">,</span> <span class="n">minparts_x</span><span class="p">,</span> <span class="n">nparts_y</span><span class="p">,</span> <span class="n">nparts_x</span><span class="p">):</span>
+    <span class="n">mini</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">nparts</span>
+    <span class="n">nparts_y</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">nparts_x</span> <span class="o">=</span> <span class="n">nparts</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nparts</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">nparts</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">nparts</span> <span class="o">/</span> <span class="n">y</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">mini</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">y</span> <span class="o">&gt;=</span> <span class="n">minparts_y</span><span class="p">)</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">minparts_x</span><span class="p">:</span>
+                <span class="n">mini</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+                <span class="n">nparts_y</span> <span class="o">=</span> <span class="n">y</span>
+                <span class="n">nparts_x</span> <span class="o">=</span> <span class="n">x</span>
+    
+    <span class="k">return</span> <span class="n">nparts_y</span><span class="p">,</span> <span class="n">nparts_x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">init_module_machine</span><span class="p">():</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">wrf_sizeof_integer</span><span class="p">(</span><span class="n">retval</span><span class="p">):</span>
+    <span class="n">retvar</span> <span class="o">=</span> <span class="mi">4</span>
+    
+<span class="k">def</span> <span class="nf">wrf_sizeof_real</span><span class="p">(</span><span class="n">retval</span><span class="p">):</span>
+    <span class="n">retval</span> <span class="o">=</span> <span class="mi">4</span>
+    
+<span class="k">def</span> <span class="nf">wrf_sizeof_doubleprecision</span><span class="p">(</span><span class="n">retval</span><span class="p">):</span>
+    <span class="n">retval</span> <span class="o">=</span> <span class="mi">8</span>
+    
+<span class="k">def</span> <span class="nf">wrf_sizeof_logical</span><span class="p">(</span><span class="n">retval</span><span class="p">):</span>
+    <span class="n">retval</span> <span class="o">=</span> <span class="mi">4</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="section-2">
+<h2><a class="headerlink" href="#section-2" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="wrf-run">
+<h2><code class="docutils literal notranslate"><span class="pre">wrf_run</span></code><a class="headerlink" href="#wrf-run" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="wrf-finalize">
+<h2><code class="docutils literal notranslate"><span class="pre">wrf_finalize</span></code><a class="headerlink" href="#wrf-finalize" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="wrf-dfi">
+<h2><code class="docutils literal notranslate"><span class="pre">wrf_dfi</span></code><a class="headerlink" href="#wrf-dfi" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By The Jupyter Book Community<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
